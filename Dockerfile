@@ -1,17 +1,26 @@
-FROM python:3.10-slim
+FROM python:3.9-slim
 
-# Install system-level build tools & Graphviz libs
+# Install system deps & build tools
+# RUN apt-get update && apt-get install -y \
+#     build-essential gcc \
+#     graphviz libgraphviz-dev pkg-config \
+#     && rm -rf /var/lib/apt/lists/*
+
 RUN apt-get update && apt-get install -y \
-    build-essential gcc \
-    graphviz libgraphviz-dev pkg-config \
+    graphviz \
+    graphviz-dev \
+    pkg-config \
+    python3-dev \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
+# Python deps
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy app files
-COPY app/ app/
+# Install Jupyter
+RUN pip install notebook ipykernel
 
-CMD ["python", "app/main.py"]
+# Default command
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]

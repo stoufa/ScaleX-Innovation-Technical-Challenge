@@ -7,4 +7,4 @@ langgraph==0.1.1
 semantic-router==0.0.48
 serpapi==0.1.5
 google-search-results==2.4.2
-pygraphviz==1.12  # for visualizing
+pygraphviz==1.11  # for visualizing
