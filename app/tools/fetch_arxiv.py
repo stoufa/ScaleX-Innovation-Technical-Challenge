@@ -1,4 +1,14 @@
+import requests
+import re
+
 from langchain_core.tools import tool
+
+
+# our regex
+abstract_pattern = re.compile(
+    r'<blockquote class="abstract mathjax">\s*<span class="descriptor">Abstract:</span>\s*(.*?)\s*</blockquote>',
+    re.DOTALL
+)
 
 
 @tool("fetch_arxiv")

@@ -1,12 +1,21 @@
 # Setup
 
+- make sure to copy `env.template` to `.env` and fill it with the corresponding api keys
+
 ## Local
 
-- create a new python v3.10 conda environment:
+- create and activate a new python v3.10 conda environment:
   - source: [how-to-create-conda-environment-with-specific-python-version](https://stackoverflow.com/questions/56713744/how-to-create-conda-environment-with-specific-python-version)
 
 ```bash
 conda create -n "sxi_challenge" python=3.10 ipython
+conda activate sxi_challenge
+```
+
+- install dependencies
+
+```bash
+pip install -r requirements.txt
 ```
 
 ## Docker

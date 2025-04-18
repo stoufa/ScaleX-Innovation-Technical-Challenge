@@ -1,24 +1,25 @@
-from langgraph.graph import StateGraph, END
 import argparse
+import operator
+import time
+import os
+
+from langgraph.graph import StateGraph, END
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import ToolCall, ToolMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-import operator
 from langchain_core.messages import BaseMessage
 from langchain_core.agents import AgentAction, AgentFinish
 from typing import TypedDict, Annotated, List, Union
 from pprint import pprint
-import time
 from pinecone import ServerlessSpec
 from pinecone import Pinecone
-import os
 from getpass import getpass
 # from semantic_router.encoders import OpenAIEncoder
 from semantic_router.encoders.openai import OpenAIEncoder
 from tools import *
 
-os.environ["OPENAI_API_KEY"] = os.getenv(
-    "OPENAI_API_KEY") or getpass("OpenAI API key: ")
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY") \
+    or getpass("OpenAI API key: ")
 
 encoder = OpenAIEncoder(name="text-embedding-3-small")
 
@@ -29,18 +30,12 @@ api_key = os.getenv("PINECONE_API_KEY") or getpass("Pinecone API key: ")
 # configure client
 pc = Pinecone(api_key=api_key)
 
-
-# spec = ServerlessSpec(
-#     cloud="aws", region="us-west-2"  # us-east-1
-# )
-
 spec = ServerlessSpec(
-    cloud='aws',       # or 'gcp' if needed
+    cloud='aws',        # or 'gcp' if needed
     region='us-east-1'  # <-- supported for free tier
 )
 
 dims = len(encoder(["some random text"])[0])  # 1536 in our case
-
 
 index_name = "gpt-4o-research-agent"
 
@@ -72,7 +67,7 @@ class AgentState(TypedDict):
 
 
 # oracle
-system_prompt = """You are the oracle, the great AI decision maker.
+SYSTEM_PROMPT = """You are the oracle, the great AI decision maker.
 Given the user's query you must decide what to do with it based on the
 list of tools provided to you.
 
@@ -87,7 +82,7 @@ to answer the user's question (stored in the scratchpad) use the final_answer
 tool."""
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system", system_prompt),
+    ("system", SYSTEM_PROMPT),
     MessagesPlaceholder(variable_name="chat_history"),
     ("user", "{input}"),
     ("assistant", "scratchpad: {scratchpad}"),
@@ -200,9 +195,8 @@ def run_tool(state: list):
     )
     return {"intermediate_steps": [action_out]}
 
+
 # graph definition
-
-
 graph = StateGraph(AgentState)
 
 graph.add_node("oracle", run_oracle)
@@ -215,8 +209,8 @@ graph.add_node("final_answer", run_tool)
 graph.set_entry_point("oracle")
 
 graph.add_conditional_edges(
-    source="oracle",  # where in graph to start
-    path=router,  # function to determine which node is called
+    source="oracle",    # where in graph to start
+    path=router,        # function to determine which node is called
 )
 
 # create edges from each tool back to the oracle

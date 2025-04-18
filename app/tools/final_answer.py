@@ -20,7 +20,7 @@ def final_answer(
     long in length.
     - `conclusion`: this is a short single paragraph conclusion providing a
     concise but sophisticated view on what was found.
-    - `sources`: a bulletpoint list provided detailed sources for all information
+    - `sources`: a bullet point list provided detailed sources for all information
     referenced during the research process
     """
     if type(research_steps) is list:

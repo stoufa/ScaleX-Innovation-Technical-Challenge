@@ -1,11 +1,6 @@
 FROM python:3.9-slim
 
 # Install system deps & build tools
-# RUN apt-get update && apt-get install -y \
-#     build-essential gcc \
-#     graphviz libgraphviz-dev pkg-config \
-#     && rm -rf /var/lib/apt/lists/*
-
 RUN apt-get update && apt-get install -y \
     graphviz \
     graphviz-dev \

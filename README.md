@@ -1,8 +1,8 @@
-# ScaleX-Innovation-Technical-Challenge
+# ScaleX Innovation Technical Challenge
 
 [ScaleX Innovation] AI Engineer Technical Challenge
 
-- Project #1: Project Title: Multi-Source RAG Chatbot
+- Project #1: Multi-Source RAG Chatbot
 
 - Video: [ScaleX Innovation Technical Challenge - 2025 04 17 16 31 16](https://youtu.be/IXFS6rKlMF0)
 
@@ -24,3 +24,31 @@ Tools used:
 - pinecone: vector store
 - serp api: web search api
 - chatgpt.com: (+ windsurf) as coding assistants and for troubleshooting purposes
+
+Folder structure
+
+```
+.
+├── app
+│   ├── cli.py
+│   ├── run.ps1
+│   ├── run.sh
+│   └── tools
+│       ├── fetch_arxiv.py
+│       ├── final_answer.py
+│       ├── __init__.py
+│       ├── rag.py
+│       └── web_search.py
+├── docker-compose.yml
+├── Dockerfile
+├── env.template
+└── requirements.txt
+```
+
+References
+
+- [LangGraph in One Video - Recruitment Agency Workflow | Beginner Friendly Explanation with Code - YouTube](https://www.youtube.com/watch?v=wvNgKx2e_LA)
+- [LangChain Mastery in 2025 | Full 5 Hour Course - YouTube](https://www.youtube.com/watch?v=Cyv-dgv80kE)
+- [LangGraph - YouTube](https://www.youtube.com/playlist?list=PLZoTAELRMXVNAprLfaHq64tBeCGvWSVpv)
+- [Agentic AI With Langgraph - YouTube](https://www.youtube.com/playlist?list=PLZoTAELRMXVPFd7JdvB-rnTb_5V26NYNO)
+- [Updated Langchain - YouTube](https://www.youtube.com/playlist?list=PLZoTAELRMXVOQPRG7VAuHL--y97opD5GQ)

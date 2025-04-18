@@ -5,7 +5,5 @@ services:
       - "8888:8888" # Expose Jupyter port
     volumes:
       - .:/app # Mount the notebook directory
-    environment:
-      OPENAI_API_KEY: "${OPENAI_API_KEY}"
-      PINECONE_API_KEY: "${PINECONE_API_KEY}"
-      SERPAPI_API_KEY: "${SERPAPI_API_KEY}"
+    env_file:
+      - .env
